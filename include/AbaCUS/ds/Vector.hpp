@@ -26,9 +26,11 @@ namespace abacus{
 				}
 			}
 
+
 			// accessor
 			T &operator[]( size_t index ) { return elem[index]; }
 			T &operator()( size_t index ) { return elem[index]; }
+
 
 			// assignment 
 			VectorBase<T, dim> &operator=( VectorBase<T, dim> &other ) { set(other); return *this; }
@@ -59,20 +61,64 @@ namespace abacus{
 				return ret;
 			}
 
-			virtual VectorBase<T,dim> & operator+=( VectorBase<T, dim> &rhs ) {
+
+			virtual VectorBase<T,dim> &operator+=( VectorBase<T, dim> &rhs ) {
 				for( unsigned int i = 0 ; i < dim ; i++ ) elem[i] += rhs[i];
 				return *this;
 			}
-			virtual VectorBase<T,dim> & operator-=( VectorBase<T, dim> &rhs ) {
+			virtual VectorBase<T,dim> &operator-=( VectorBase<T, dim> &rhs ) {
 				for( unsigned int i = 0 ; i < dim ; i++ ) elem[i] -= rhs[i];
 				return *this;
 			}
-			virtual VectorBase<T,dim> & operator*=( VectorBase<T, dim> &rhs ) {
+			virtual VectorBase<T,dim> &operator*=( VectorBase<T, dim> &rhs ) {
 				for( unsigned int i = 0 ; i < dim ; i++ ) elem[i] *= rhs[i];
 				return *this;
 			}
-			virtual VectorBase<T,dim> & operator/=( VectorBase<T, dim> &rhs ) {
+			virtual VectorBase<T,dim> &operator/=( VectorBase<T, dim> &rhs ) {
 				for( unsigned int i = 0 ; i < dim ; i++ ) elem[i] /= rhs[i];
+				return *this;
+			}
+
+
+			virtual VectorBase<T, dim> operator+( T &rhs ) { 
+				VectorBase<T,dim> ret;
+				for( unsigned int i = 0 ; i < dim ; i++ ) ret[i] = elem[i] + rhs;
+				return ret;
+			}
+			virtual VectorBase<T, dim> operator-( T &rhs ) { 
+				VectorBase<T,dim> ret;
+				for( unsigned int i = 0 ; i < dim ; i++ ) ret[i] = elem[i] - rhs;
+				return ret;
+			}
+			virtual VectorBase<T, dim> operator*( T &rhs ) { 
+				VectorBase<T,dim> ret;
+				for( unsigned int i = 0 ; i < dim ; i++ ) ret[i] = elem[i] * rhs;
+				return ret;
+			}
+			virtual VectorBase<T, dim> operator/( T &rhs ) { 
+				VectorBase<T,dim> ret;
+				for( unsigned int i = 0 ; i < dim ; i++ ) ret[i] = elem[i] / rhs;
+				return ret;
+			}
+
+			virtual VectorBase<T, dim> &operator+=( T &rhs ) { 
+				VectorBase<T,dim> ret;
+				for( unsigned int i = 0 ; i < dim ; i++ ) elem[i] += rhs;
+				return *this;
+			}
+			virtual VectorBase<T, dim> &operator-=( T &rhs ) { 
+				VectorBase<T,dim> ret;
+				for( unsigned int i = 0 ; i < dim ; i++ ) elem[i] -= rhs;
+				return *this;
+			}
+			virtual VectorBase<T, dim> &operator*=( T &rhs ) { 
+				VectorBase<T,dim> ret;
+				for( unsigned int i = 0 ; i < dim ; i++ ) elem[i] *= rhs;
+				return *this;
+			}
+			virtual VectorBase<T, dim> &operator/=( T &rhs ) { 
+				VectorBase<T,dim> ret;
+				for( unsigned int i = 0 ; i < dim ; i++ ) elem[i] /= rhs;
 				return *this;
 			}
 
