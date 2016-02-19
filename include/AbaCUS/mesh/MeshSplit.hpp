@@ -7,6 +7,8 @@
 #include <cinder/TriMesh.h> 
 #endif
 
+
+
 namespace abacus {
 	namespace mesh {
 		
@@ -14,10 +16,10 @@ namespace abacus {
 		public :
 			
 		private:
-		
+			
 		};
 
-		inline bool split(  );
+		
 
 	};
 	using namespace mesh;
