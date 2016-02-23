@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <algorithm>
 
 namespace abacus{
 	namespace ds{
@@ -16,7 +17,7 @@ namespace abacus{
 				memcpy( elem, data, sizeof(T) * dim );
 			}
 			VectorBase( T value ) {
-				memset( elem, value, sizeof(T) * dim ); 
+				std::uninitialized_fill_n( &elem[0], dim, value );
 			}
 
 			void set( VectorBase<T, dim> &other ) {
