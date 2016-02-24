@@ -4,12 +4,15 @@
 #include <cassert>
 #include <cmath>
 #include <algorithm>
+#include <string>
 
 namespace abacus{
 	namespace ds{
 		template <typename T, int dim = 0>
 		class VectorBase { 
 			static const size_t size = dim;
+
+			
 		public : 
 			// default constructor, warning! no initialization here!
 			VectorBase() {}
@@ -226,18 +229,125 @@ namespace abacus{
 				return lhs;
 			}
 
+			// casting
+			operator std::string() const { 
+				std::string str = "["; 
+				for( unsigned int i = 0 ; i < size ; i++ ) {
+					if( i == size - 1 ) {
+						str += std::to_string( elem[i] );
+					} else {
+						str += std::to_string( elem[i] );
+						str += ", ";
+					}
+				}
+				str += "]";
+				return str;
+			}
 
-		private :
+			// static member functions
+			static VectorBase<T, dim> zero() {
+				return VectorBase<T, dim>(0);
+			}
+
+			static VectorBase<T, dim> one() {
+				return VectorBase<T, dim>(1);
+			}
+
+		protected :
 			T elem[dim];
 		}; // end class VectorBase
 
-		//template <typename U>
-		//class Vec2<U> : public VectorBase<U, 2> {
-		//public :
-		//	Vec2();
-		//	Vec2( T x, T y );
-		//	T x, y;
-		//}; // end class Vec2<T>
+		// vec2 class
+		template <typename T>
+		class Vec2 : public VectorBase<T, 2> {
+		public :
+			Vec2() { 
+				elem[0] = 0;
+				elem[1] = 0;
+			}
+			Vec2( T x_, T y_ ) {
+				elem[0] = x_;
+				elem[1] = y_;
+			}
+			Vec2( VectorBase<T,2> &base ) {
+				elem[0] = base[0];
+				elem[1] = base[1];
+			}
+			
+			// setter, e.g. vec.x() = val;
+			T &x() { return elem[0]; }
+			T &y() { return elem[1]; }
+
+			// getter
+			T x() const { return elem[0]; }
+			T y() const { return elem[1]; }
+			
+		}; // end class Vec2<T>
+
+		// vec3 class
+		template <typename T>
+		class Vec3 : public VectorBase<T, 3> {
+		public :
+			Vec3() { 
+				elem[0] = 0;
+				elem[1] = 0;
+				elem[2] = 0;
+			}
+			Vec3( T x_, T y_, T z_ ) {
+				elem[0] = x_;
+				elem[1] = y_;
+				elem[2] = z_;
+			}
+			Vec3( VectorBase<T,3> &base ) {
+				elem[0] = base[0];
+				elem[1] = base[1];
+				elem[2] = base[2];
+			}
+			// setter, e.g. vec.x() = val;
+			T &x() { return elem[0]; }
+			T &y() { return elem[1]; }
+			T &z() { return elem[2]; }
+
+			// getter
+			T x() const { return elem[0]; }
+			T y() const { return elem[1]; }
+			T z() const { return elem[2]; }
+		
+		}; // end class Vec3<T>
+
+		template <typename T, int dim> struct Vector { typedef VectorBase<T, dim> type; };
+		template <typename T, int dim> struct Vec { typedef VectorBase<T, dim> type; };
+
+		template <int dim> struct VecXi { typedef VectorBase<int, dim> type; };
+		template <int dim> struct VecXf { typedef VectorBase<float, dim> type; };
+		template <int dim> struct VecXd { typedef VectorBase<double, dim> type; };
+		template <int dim> struct VecXl { typedef VectorBase<long, dim> type; };
+		template <int dim> struct VecXui { typedef VectorBase<unsigned int, dim> type; };
+		template <int dim> struct VecXb { typedef VectorBase<bool, dim> type; };
+
+		//template <typename T, int dim> using Vector = VectorBase<T, dim>;
+		//template <typename T, int dim> using Vec = VectorBase<T, dim>;
+
+		//template <int dim> using VecXi = VectorBase<int, dim>;
+		//template <int dim> using VecXf = VectorBase<float, dim>;
+		//template <int dim> using VecXd = VectorBase<double, dim>;
+		//template <int dim> using VecXl = VectorBase<long, dim>;
+		//template <int dim> using VecXui = VectorBase<unsigned int, dim>;
+		//template <int dim> using VecXb = VectorBase<bool, dim>;
+
+		typedef Vec2<int>			Vec2i;
+		typedef Vec2<float>			Vec2f;
+		typedef Vec2<double>		Vec2d;
+		typedef Vec2<long>			Vec2l;
+		typedef Vec2<unsigned int>	Vec2ui;
+		typedef Vec2<bool>			Vec2b;
+
+		typedef Vec3<int>			Vec3i;
+		typedef Vec3<float>			Vec3f;
+		typedef Vec3<double>		Vec3d;
+		typedef Vec3<long>			Vec3l;
+		typedef Vec3<unsigned int>	Vec3ui;
+		typedef Vec3<bool>			Vec3b;
 
 	}; // end ds
 	using namespace ds;
